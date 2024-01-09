@@ -13,6 +13,7 @@ router.get("/", async (req, res) => {
     if (!allProducts) {
       res.status(404).json({ message: "No Products" });
     }
+    res.json(allProducts)
   } catch (err) {
     res.status(500).json(err);
   }
@@ -26,7 +27,13 @@ router.get("/:id", async (req, res) => {
 
       include: [Category,Tag],
 
-    })
+    });
+    if (!oneProduct) {
+
+      res.status(404).json({message: "No Products at this ID"});
+      
+    }
+    res.json(oneProduct)
   } catch (err) {
     res.status(500).json(err);
   }
